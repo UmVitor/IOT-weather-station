@@ -8,6 +8,7 @@
 
 #include "WIFI_API.h"
 #include "HTTP_REQUEST_API.h"
+#include "dht11.h"
 
 uint32_t wind_speed_ADC()
 {
@@ -78,11 +79,11 @@ void app_main(void)
 
     adc1_config_channel_atten(ADC1_CHANNEL_3, ADC_ATTEN_DB_11); //set the atenuation
 
-
+    DHT11_init(GPIO_NUM_4); // Inicia o GPIO
 
     while(1)
     {
-        uint32_t send_data[] = {wind_speed_ADC(), rain_sensor_ADC()};
+        uint32_t send_data[] = {wind_speed_ADC(), rain_sensor_ADC(), DHT11_read().humidity,DHT11_read().temperature};
         http_get_task(send_data);
 
         for (int countdown = 15; countdown >= 0; countdown--)

@@ -4,14 +4,14 @@
 void http_get_task(uint32_t *paramters)
 {
     const char *TEMPLATE = "GET "
-                           "/update?api_key="INSERT_HERE_YOUR_KEY"&field1=%i&field2=%i"
+                           "/update?api_key=INSERT_HERE_YOUR_API_KEY&field1=%i&field2=%i&field3=%i&field4=%i"
                            " HTTP/1.0\r\n"
                            "Host: " WEB_SERVER ":" WEB_PORT "\r\n"
                            "User-Agent: esp-idf/1.0 esp32\r\n"
                            "\r\n";
 
-    char *REQUEST[sizeof(TEMPLATE) + 30];
-    sprintf(REQUEST, TEMPLATE, paramters[0], paramters[1]);
+    char *REQUEST[sizeof(TEMPLATE) + 40];
+    sprintf(REQUEST, TEMPLATE, paramters[0], paramters[1], paramters[2], paramters[3]);
 
     const struct addrinfo hints = {
         .ai_family = AF_INET,
